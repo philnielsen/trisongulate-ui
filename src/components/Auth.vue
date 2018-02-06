@@ -6,6 +6,7 @@
 </template>
 
 <script>
+const queryString = require('query-string')
 export default {
   name: 'Auth',
   components: {
@@ -14,8 +15,21 @@ export default {
     return {
       msg: 'Trisongulate'
     }
+  },
+  computed: {
+    user () {
+      return this
+    }
+  },
+  mounted () {
+    var parseHash = queryString.parse(location.hash)
+    this.$store.commit('SET_SPOTIFY_TOKEN', {hash: parseHash.access_token})
+    console.log('spotify Token: ', this.$store.getters.spotifyToken)
+    this.$router.push('trisongulate')
   }
+
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
